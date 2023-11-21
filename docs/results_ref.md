@@ -29,6 +29,53 @@
 			}
 		}
 	</style>
+
+<script>
+    // Function to create a chart
+    function createChart(data, chartId, preferences) {
+        // Chart creation logic...
+        // Example: Create a simple bar chart
+        const svg = d3.select("#" + chartId)
+                      .append("svg")
+                      .attr("width", 400)
+                      .attr("height", 200);
+
+        // Example chart logic (customize as needed)
+        svg.selectAll("rect")
+           .data(data)
+           .enter()
+           .append("rect")
+           .attr("x", (d, i) => i * 30)
+           .attr("y", d => 200 - d.Value) // Example data property
+           .attr("width", 25)
+           .attr("height", d => d.Value) // Example data property
+           .attr("fill", preferences.color || "steelblue");
+    }
+
+    // Array of chart configurations
+    const chartConfigs = [
+        {
+            dataSource: "https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/5_OneCatSevNumOrdered_wide.csv",
+            chartId: "chart1",
+            preferences: { color: "red" }
+        },
+        {
+            dataSource: "https://raw.githubusercontent.com/holtzy/master/Example_dataset/5_OneCatSevNumOrdered_wide.csv",
+            chartId: "chart2",
+            preferences: { color: "blue" }
+        },
+        // Additional configurations for chart2, chart3, and chart4
+    ];
+
+    // Load data and create charts
+    chartConfigs.forEach(config => {
+        d3.csv(config.dataSource).then(data => {
+            createChart(data, config.chartId, config.preferences);
+        }).catch(error => {
+            console.error("Error loading the CSV data: ", error);
+        });
+    });
+</script>
 </head>
 
 
@@ -38,8 +85,6 @@
 	<div class="chart-wrapper" id="chart2"></div>
 	<div class="chart-wrapper" id="chart3"></div>
 	<div class="chart-wrapper" id="chart4"></div>
-	<div class="chart-wrapper" id="chart5"></div>
-	<div class="chart-wrapper" id="chart6"></div>
 </div>
 
 <script>
@@ -214,8 +259,6 @@ d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_data
 	createChart('chart2');
 	createChart('chart3');
 	createChart('chart4');
-	createChart('chart5');
-	createChart('chart6');
 </script>
 ## Residential Results
 
