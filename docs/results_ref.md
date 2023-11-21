@@ -12,7 +12,7 @@
 	<style>
 		#chart-container {
 			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			grid-template-columns: repeat(2, 1fr);
 			grid-gap: 10px;
 		}
 		.chart-wrapper {
